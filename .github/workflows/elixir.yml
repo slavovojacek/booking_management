@@ -18,6 +18,7 @@ jobs:
         image: rabbitmq:3-alpine
         ports:
           - 5672:5672
+        options: --container_name rabbitmq --hostname rabbitmq
 
     steps:
     - uses: actions/checkout@v1
