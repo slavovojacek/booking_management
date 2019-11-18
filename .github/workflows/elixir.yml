@@ -21,8 +21,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Test RabbitMQ Connection
-      run: /usr/bin/docker exec -it rabbitmq rabbitmqadmin list queues
+    # - name: Test RabbitMQ Connection
+      # run: /usr/bin/docker exec -it rabbitmq rabbitmqadmin list queues
     - name: Install Dependencies
       run: |
         mix local.rebar --force
