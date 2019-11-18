@@ -63,5 +63,23 @@ defmodule BookingManagementTest.Client do
       assert payload["type"] == params["type"]
       assert payload["version"] == "1.0.0"
     end
+
+    test "request_fares/2 does not publish an invalid event" do
+      params =
+        Factory.build(:request_fares_params, %{"type" => "return", "return_date_time" => nil})
+
+      assert {:error, %Ecto.Changeset{errors: [_ | _], valid?: false}} =
+               Client.request_fares(params, [])
+
+      refute_receive 100
+    end
+
+    test "place_booking/1 is not implemented" do
+      assert {:error, :not_implemented} = Client.place_booking()
+    end
+
+    test "cancel_booking/1 is not implemented" do
+      assert {:error, :not_implemented} = Client.cancel_booking()
+    end
   end
 end

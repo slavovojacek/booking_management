@@ -4,6 +4,8 @@ defmodule ParamsTest.RequestFaresParams do
   alias Params.RequestFaresParams
   alias TestSupport.Factory
 
+  import Core.DateTimeUtils, only: [iso_8601_to_day_beginning!: 1]
+
   use ExUnit.Case, async: true
 
   @supported_airports RequestFaresParams.supported_airports()
@@ -11,7 +13,22 @@ defmodule ParamsTest.RequestFaresParams do
   describe "Params.RequestFaresParams" do
     test "to_valid_attrs/1 returns valid attrs" do
       params = Factory.build(:request_fares_params)
-      assert {:ok, _attrs} = RequestFaresParams.to_valid_attrs(params)
+
+      assert {:ok, attrs} = RequestFaresParams.to_valid_attrs(params)
+
+      assert attrs.class == params["class"]
+
+      assert attrs.departure_date_time ==
+               iso_8601_to_day_beginning!(params["departure_date_time"])
+
+      assert attrs.from == params["from"]
+      assert attrs.number_of_passengers == params["number_of_passengers"]
+
+      assert attrs.return_date_time ==
+               iso_8601_to_day_beginning!(params["return_date_time"])
+
+      assert attrs.to == params["to"]
+      assert attrs.type == params["type"]
     end
 
     test "to_valid_attrs/1 returns transforms ISO8601 strings to beginning of day (as `DateTime`)" do
