@@ -18,12 +18,12 @@ jobs:
         image: rabbitmq:3-alpine
         ports:
           - 5672:5672
-        options: --container_name rabbitmq --hostname rabbitmq
+        options: --hostname rabbitmq
 
     steps:
     - uses: actions/checkout@v1
-    - name: Test RabbitMQ Connection
-      run: docker exec -it rabbitmq rabbitmqadmin list queues
+    # - name: Test RabbitMQ Connection
+    #   run: docker exec -it rabbitmq rabbitmqadmin list queues
     - name: Install Dependencies
       run: |
         mix local.rebar --force
