@@ -10,6 +10,15 @@ jobs:
     container:
       image: elixir:1.9.1-slim
 
+    services:
+      rabbitmq:
+        image: rabbitmq:3
+        container_name: rabbitmq
+        hostname: "rabbitmq"
+        ports:
+          - "15672:15672"
+          - "5672:5672"
+
     steps:
     - uses: actions/checkout@v1
     - name: Install Dependencies
