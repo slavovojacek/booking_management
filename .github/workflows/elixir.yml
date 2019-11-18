@@ -5,6 +5,9 @@ on: push
 jobs:
   build:
 
+    env:
+      MIX_ENV: ci
+
     runs-on: ubuntu-latest
 
     container:
@@ -12,12 +15,9 @@ jobs:
 
     services:
       rabbitmq:
-        image: rabbitmq:3
-        # container_name: rabbitmq
-        # hostname: "rabbitmq"
+        image: rabbitmq:3-alpine
         ports:
-          - "15672:15672"
-          - "5672:5672"
+          - 5672:5672
 
     steps:
     - uses: actions/checkout@v1
@@ -26,5 +26,7 @@ jobs:
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
+    - name: Compile
+      run: mix compile
     - name: Run Tests
       run: mix test
