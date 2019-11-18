@@ -43,7 +43,7 @@ defmodule BookingManagement.MixProject do
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:sobelow, ">= 0.0.0", only: :dev, runtime: false},
       # Test-only deps
-      {:ex_machina, "~> 2.3", only: :test},
+      {:ex_machina, "~> 2.3", only: [:ci, :test]},
       {:excoveralls, "~> 0.10", only: :test}
     ]
   end
